@@ -2,25 +2,22 @@ package salaroli.com.expandablecardview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExpandableCardView extends MaterialCardView {
-    public ImageView arrow;
+    private TextView primaryText, secondaryText;
+    public ImageView arrow, actionOne, actionTwo;
     private boolean cardOpenStatus = true;
     private GridView grid;
-    private View cardDivider;
-    private View header;
+    private View cardDivider, actionOneDivider, actionTwoDivider, header;
 
     public ExpandableCardView(Context context) {
         super(context);
@@ -38,20 +35,16 @@ public class ExpandableCardView extends MaterialCardView {
     private void init() {
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.room_card, this, true);
-        arrow = view.findViewById(R.id.card_arrow);
-        grid = view.findViewById(R.id.grid_devices);
-        cardDivider = view.findViewById(R.id.card_divider);
         header = view.findViewById(R.id.header);
-
-        List<IotDevice> devices = new ArrayList<IotDevice>();
-        devices.add(new IotDevice(R.drawable.lamp, "Objeto 1"));
-        devices.add(new IotDevice(R.drawable.window_open, "Objeto 2"));
-        devices.add(new IotDevice(R.drawable.window_semi, "Objeto 3"));
-        devices.add(new IotDevice(R.drawable.window_closed, "Objeto 4"));
-        devices.add(new IotDevice(R.drawable.lamp, "Objeto 5"));
-
-        ItemAdapter listItemAdapter = new ItemAdapter(getContext(), devices);
-        grid.setAdapter(listItemAdapter);
+        primaryText = view.findViewById(R.id.primary_text);
+        secondaryText = view.findViewById(R.id.secondary_text);
+        actionOne = view.findViewById(R.id.card_action_one);
+        actionOneDivider = view.findViewById(R.id.card_divider_action_one);
+        actionTwo = view.findViewById(R.id.card_action_two);
+        actionTwoDivider = view.findViewById(R.id.card_divider_action_two);
+        arrow = view.findViewById(R.id.card_arrow);
+        cardDivider = view.findViewById(R.id.card_divider);
+        grid = view.findViewById(R.id.card_grid_devices);
 
         header.setOnClickListener(view1 -> {
             if (cardOpenStatus) {
@@ -65,5 +58,48 @@ public class ExpandableCardView extends MaterialCardView {
             }
             cardOpenStatus = !cardOpenStatus;
         });
+    }
+
+    public void setPrimaryText(String room) {
+        primaryText.setText(room);
+    }
+    public void setSecondaryText(String info) {
+        secondaryText.setText(info);
+    }
+    public void setText(String room, String info) {
+        primaryText.setText(room);
+        secondaryText.setText(info);
+    }
+
+    public void setDevices(List<IotDevice> devices) {
+        ItemAdapter listItemAdapter = new ItemAdapter(getContext(), devices);
+        grid.setAdapter(listItemAdapter);
+    }
+
+    public void enableFirstAction() {
+        actionOneDivider.setVisibility(VISIBLE);
+        actionOne.setVisibility(VISIBLE);
+    }
+    public void enableSecondAction() {
+        actionTwoDivider.setVisibility(VISIBLE);
+        actionTwo.setVisibility(VISIBLE);
+    }
+
+    public void disableFirstAction() {
+        actionOneDivider.setVisibility(GONE);
+        actionOne.setVisibility(GONE);
+    }
+    public void disableSecondAction() {
+        actionTwoDivider.setVisibility(GONE);
+        actionTwo.setVisibility(GONE);
+    }
+
+
+    public void setFirstAction(int firstAction) {
+        actionOne.setImageResource(firstAction);
+    }
+
+    public void setSecondAction(int secondAction) {
+        actionTwo.setImageResource(secondAction);
     }
 }

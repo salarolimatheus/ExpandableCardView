@@ -1,6 +1,6 @@
 package salaroli.com.expandablecardview;
 
-class IotDevice {
+public class IotDevice {
     private int idDevice = 0;
     private int resourceIconDevice;
     private String textDevice;
@@ -10,6 +10,7 @@ class IotDevice {
         this.resourceIconDevice = resourceIconDevice;
         this.textDevice = textDevice;
     }
+
     public IotDevice(int resourceIconDevice, String textDevice) {
         this.resourceIconDevice = resourceIconDevice;
         this.textDevice = textDevice;

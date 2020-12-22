@@ -10,6 +10,9 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+
 class ItemAdapter extends BaseAdapter {
     private final List<IotDevice> devices;
     private final Context context;
@@ -37,11 +40,13 @@ class ItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         IotDevice device = devices.get(position);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        view = inflater.inflate(R.layout.device_item, viewGroup, false);
+        if(view == null) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            view = inflater.inflate(R.layout.device_item, viewGroup, false);
+        }
 
         MaterialButton materialButton = view.findViewById(R.id.button);
-        materialButton.setIcon(context.getResources().getDrawable(device.getResourceIconDevice()));
+        materialButton.setIcon(ContextCompat.getDrawable(context, device.getResourceIconDevice()));
         materialButton.setText(device.getTextDevice());
         return view;
     }

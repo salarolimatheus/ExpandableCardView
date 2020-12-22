@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="first_actions">First Actions</string>
+    <string name="second_action">Second Action</string>
+    <string name="expand_card">Expand Card</string>
+</resources>

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,9 +15,9 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <TextView
+            android:id="@+id/primary_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chambre"
             android:textColor="#232F34"
             android:textSize="20sp"
             android:layout_marginStart="10dp"
@@ -28,49 +27,54 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/card_temperature"
+            android:id="@+id/secondary_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="17,5 °C"
             android:textColor="#232F34"
             android:textSize="18sp"
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/card_light"
+            app:layout_constraintRight_toLeftOf="@id/card_action_one"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
+            android:id="@+id/card_divider_action_one"
             android:layout_width="1dp"
             android:layout_height="35dp"
             android:background="#1F000000"
-            app:layout_constraintLeft_toRightOf="@+id/card_temperature"
-            app:layout_constraintRight_toLeftOf="@+id/card_light"
+            app:layout_constraintLeft_toRightOf="@+id/secondary_text"
+            app:layout_constraintRight_toLeftOf="@+id/card_action_one"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
 
         <ImageView
-            android:id="@+id/card_light"
+            android:id="@+id/card_action_one"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/lamp"
-            app:layout_constraintRight_toLeftOf="@id/card_windows"
+            app:layout_constraintRight_toLeftOf="@id/card_action_two"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/first_actions"
+            android:visibility="gone" />
 
         <View
+            android:id="@+id/card_divider_action_two"
             android:layout_width="1dp"
             android:layout_height="35dp"
             android:background="#1F000000"
-            app:layout_constraintLeft_toRightOf="@+id/card_light"
-            app:layout_constraintRight_toLeftOf="@+id/card_windows"
+            app:layout_constraintLeft_toRightOf="@+id/card_action_one"
+            app:layout_constraintRight_toLeftOf="@+id/card_action_two"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
 
         <ImageView
-            android:id="@+id/card_windows"
+            android:id="@+id/card_action_two"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
@@ -79,7 +83,9 @@
             android:src="@drawable/window_open"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/card_arrow"/>
+            app:layout_constraintRight_toLeftOf="@id/card_arrow"
+            android:contentDescription="@string/second_action"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/card_arrow"
@@ -88,7 +94,8 @@
             android:src="@drawable/arrow_down"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/expand_card" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -102,7 +109,7 @@
         android:visibility="gone"/>
 
     <GridView
-        android:id="@+id/grid_devices"
+        android:id="@+id/card_grid_devices"
         android:layout_marginTop="55dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
