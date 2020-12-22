@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ExpandableCardView cardView = findViewById(R.id.cardview_principal);
+        ExpandableCardView cardView1 = findViewById(R.id.cardview_principal);
+        ExpandableCardView cardView2 = findViewById(R.id.cardview_secundario);
 
         List<IotDevice> devices = new ArrayList<>();
         devices.add(new IotDevice(R.drawable.lamp, "Objeto 1"));
@@ -25,15 +26,18 @@ public class MainActivity extends AppCompatActivity {
         devices.add(new IotDevice(R.drawable.window_semi, "Objeto 3"));
         devices.add(new IotDevice(R.drawable.window_closed, "Objeto 4"));
 
-        cardView.setText("Room", "22.18 °C");
-        cardView.enableFirstAction();
-        cardView.enableSecondAction();
+        cardView1.setText("Room", "22.18 °C");
+        cardView1.enableFirstAction();
+        cardView1.enableSecondAction();
 
-        cardView.setFirstAction(R.drawable.lamp);
-        cardView.setSecondAction(R.drawable.window_open);
+        cardView1.setFirstAction(R.drawable.lamp);
+        cardView1.setSecondAction(R.drawable.window_open);
+        cardView1.setDevices(devices);
 
-        cardView.setDevices(devices);
-        //cardView.setPrimaryText("Room");
-        //cardView.setSecondaryText("22.1 °C");
+        cardView2.setPrimaryText("Kitchen");
+        cardView2.setSecondaryText("");
+        cardView2.disableFirstAction();
+        cardView2.disableSecondAction();
+        cardView2.setDevices(devices);
     }
 }

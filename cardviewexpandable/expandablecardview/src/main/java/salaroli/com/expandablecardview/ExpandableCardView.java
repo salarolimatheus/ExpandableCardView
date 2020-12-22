@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,12 +13,18 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.transition.AutoTransition;
+import androidx.transition.Transition;
+import androidx.transition.Transition.TransitionListener;
+import androidx.transition.TransitionManager;
+
 public class ExpandableCardView extends MaterialCardView {
     private TextView primaryText, secondaryText;
     public ImageView arrow, actionOne, actionTwo;
     private boolean cardOpenStatus = true;
     private GridView grid;
-    private View cardDivider, actionOneDivider, actionTwoDivider, header;
+    private View cardDivider, actionOneDivider, actionTwoDivider;
 
     public ExpandableCardView(Context context) {
         super(context);
@@ -35,7 +42,7 @@ public class ExpandableCardView extends MaterialCardView {
     private void init() {
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.room_card, this, true);
-        header = view.findViewById(R.id.header);
+        View header = view.findViewById(R.id.header);
         primaryText = view.findViewById(R.id.primary_text);
         secondaryText = view.findViewById(R.id.secondary_text);
         actionOne = view.findViewById(R.id.card_action_one);
@@ -48,16 +55,41 @@ public class ExpandableCardView extends MaterialCardView {
 
         header.setOnClickListener(view1 -> {
             if (cardOpenStatus) {
-                arrow.setImageResource(R.drawable.arrow_up);
                 grid.setVisibility(VISIBLE);
                 cardDivider.setVisibility(VISIBLE);
+                TransitionManager.beginDelayedTransition((ViewGroup) getParent(), new AutoTransition());
+                arrow.setImageResource(R.drawable.arrow_up);
             } else {
-                arrow.setImageResource(R.drawable.arrow_down);
+                AutoTransition transition = new AutoTransition();
+                transition.addListener(new TransitionListener() {
+                    @Override
+                    public void onTransitionStart(@NonNull Transition transition) {
+
+                    }
+                    @Override
+                    public void onTransitionEnd(@NonNull Transition transition) {
+                        cardDivider.setVisibility(GONE);
+                    }
+                    @Override
+                    public void onTransitionCancel(@NonNull Transition transition) {
+
+                    }
+                    @Override
+                    public void onTransitionPause(@NonNull Transition transition) {
+
+                    }
+                    @Override
+                    public void onTransitionResume(@NonNull Transition transition) {
+
+                    }
+                });
+                TransitionManager.beginDelayedTransition((ViewGroup) getParent(), transition);
                 grid.setVisibility(GONE);
-                cardDivider.setVisibility(GONE);
+                arrow.setImageResource(R.drawable.arrow_down);
             }
             cardOpenStatus = !cardOpenStatus;
         });
+
     }
 
     public void setPrimaryText(String room) {
@@ -84,7 +116,6 @@ public class ExpandableCardView extends MaterialCardView {
         actionTwoDivider.setVisibility(VISIBLE);
         actionTwo.setVisibility(VISIBLE);
     }
-
     public void disableFirstAction() {
         actionOneDivider.setVisibility(GONE);
         actionOne.setVisibility(GONE);
@@ -93,12 +124,9 @@ public class ExpandableCardView extends MaterialCardView {
         actionTwoDivider.setVisibility(GONE);
         actionTwo.setVisibility(GONE);
     }
-
-
     public void setFirstAction(int firstAction) {
         actionOne.setImageResource(firstAction);
     }
-
     public void setSecondAction(int secondAction) {
         actionTwo.setImageResource(secondAction);
     }
