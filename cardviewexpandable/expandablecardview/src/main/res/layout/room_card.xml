@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
@@ -18,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chambre"
+            android:textColor="#232F34"
             android:textSize="20sp"
             android:layout_marginStart="10dp"
             android:gravity="center"
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="17,5 °C"
+            android:textColor="#232F34"
             android:textSize="18sp"
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +75,8 @@
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/window_closed"
+            android:padding="3dp"
+            android:src="@drawable/window_open"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/card_arrow"/>
@@ -99,11 +103,15 @@
 
     <GridView
         android:id="@+id/grid_devices"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="55dp"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:numColumns="2"
+        android:padding="10dp"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"/>
 </com.google.android.material.card.MaterialCardView>

@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpandableCardView extends MaterialCardView {
@@ -42,11 +43,15 @@ public class ExpandableCardView extends MaterialCardView {
         cardDivider = view.findViewById(R.id.card_divider);
         header = view.findViewById(R.id.header);
 
-//        for (int i = 0; i <8; i++) {
-//            View item = inflater.inflate(R.layout.device_item, this, false);
-//            ItemAdapter listItemAdapter = new ItemAdapter();
-//            grid.setAdapter(listItemAdapter);
-//        }
+        List<IotDevice> devices = new ArrayList<IotDevice>();
+        devices.add(new IotDevice(R.drawable.lamp, "Objeto 1"));
+        devices.add(new IotDevice(R.drawable.window_open, "Objeto 2"));
+        devices.add(new IotDevice(R.drawable.window_semi, "Objeto 3"));
+        devices.add(new IotDevice(R.drawable.window_closed, "Objeto 4"));
+        devices.add(new IotDevice(R.drawable.lamp, "Objeto 5"));
+
+        ItemAdapter listItemAdapter = new ItemAdapter(getContext(), devices);
+        grid.setAdapter(listItemAdapter);
 
         header.setOnClickListener(view1 -> {
             if (cardOpenStatus) {
