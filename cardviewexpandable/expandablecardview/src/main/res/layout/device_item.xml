@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/button"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:textColor="#232F34"
     app:icon="@drawable/lamp"
-    app:iconPadding="20dp"
+    app:iconSize="40dp"
     app:iconTint="#232F34"
     app:rippleColor="#4D232F34"
-    style="?attr/materialButtonOutlinedStyle">
+    style="?attr/materialButtonOutlinedStyle"
+    android:clickable="false">
 
 </com.google.android.material.button.MaterialButton>

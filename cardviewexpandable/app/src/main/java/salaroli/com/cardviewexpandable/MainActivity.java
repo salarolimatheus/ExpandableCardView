@@ -6,6 +6,7 @@ import salaroli.com.expandablecardview.IotDevice;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,18 @@ public class MainActivity extends AppCompatActivity {
         cardView1.enableFirstAction();
         cardView1.enableSecondAction();
 
+        cardView1.setInterfaceListener(new ExpandableCardView.InterfaceExpandableCardView() {
+            @Override
+            public void onItemSelect(IotDevice device) {
+                Toast.makeText(getBaseContext(), device.getTextDevice(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void noDevice() {
+                Toast.makeText(getBaseContext(), "No Device", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         cardView1.setFirstAction(R.drawable.lamp);
         cardView1.setSecondAction(R.drawable.window_open);
         cardView1.setDevices(devices);
@@ -38,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
         cardView2.setSecondaryText("");
         cardView2.disableFirstAction();
         cardView2.disableSecondAction();
-        cardView2.setDevices(devices);
+        //cardView2.setDevices(devices);
+
+        cardView2.setInterfaceListener(new ExpandableCardView.InterfaceExpandableCardView() {
+            @Override
+            public void onItemSelect(IotDevice device) {
+                Toast.makeText(getBaseContext(), device.getTextDevice(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void noDevice() {
+                Toast.makeText(getBaseContext(), "No Device", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

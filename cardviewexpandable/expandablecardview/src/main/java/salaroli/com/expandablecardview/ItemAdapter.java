@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -16,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 class ItemAdapter extends BaseAdapter {
     private final List<IotDevice> devices;
     private final Context context;
+    private InterfaceObjects interfaceObjects;
 
     public ItemAdapter(Context context, List<IotDevice> devices) {
         this.context = context;
@@ -28,7 +30,7 @@ class ItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public IotDevice getItem(int position) {
         return devices.get(position);
     }
 
@@ -44,10 +46,19 @@ class ItemAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(context);
             view = inflater.inflate(R.layout.device_item, viewGroup, false);
         }
-
         MaterialButton materialButton = view.findViewById(R.id.button);
         materialButton.setIcon(ContextCompat.getDrawable(context, device.getResourceIconDevice()));
         materialButton.setText(device.getTextDevice());
+
+        materialButton.setOnClickListener(viewButton -> interfaceObjects.callObject(device));
         return view;
+    }
+
+    public interface InterfaceObjects {
+        void callObject(IotDevice device);
+    }
+
+    public void setInterfaceObjectsListener(InterfaceObjects interfaceObjects) {
+        this.interfaceObjects = interfaceObjects;
     }
 }
