@@ -1,4 +1,4 @@
-package salaroli.com.expandablecardview;
+package salaroli.com.expandablecardview.CardView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,9 +12,10 @@ import com.google.android.material.button.MaterialButton;
 import java.util.List;
 
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
+import salaroli.com.expandablecardview.IotDevice;
+import salaroli.com.expandablecardview.R;
 
-class ItemAdapter extends BaseAdapter {
+public class ItemAdapter extends BaseAdapter {
     private final List<IotDevice> devices;
     private final Context context;
     private InterfaceObjects interfaceObjects;
@@ -57,7 +58,6 @@ class ItemAdapter extends BaseAdapter {
     public interface InterfaceObjects {
         void callObject(IotDevice device);
     }
-
     public void setInterfaceObjectsListener(InterfaceObjects interfaceObjects) {
         this.interfaceObjects = interfaceObjects;
     }

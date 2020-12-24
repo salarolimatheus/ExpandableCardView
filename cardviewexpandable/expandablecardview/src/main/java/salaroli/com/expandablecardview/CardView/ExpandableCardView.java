@@ -1,4 +1,4 @@
-package salaroli.com.expandablecardview;
+package salaroli.com.expandablecardview.CardView;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -18,6 +18,8 @@ import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
 import androidx.transition.Transition.TransitionListener;
 import androidx.transition.TransitionManager;
+import salaroli.com.expandablecardview.IotDevice;
+import salaroli.com.expandablecardview.R;
 
 public class ExpandableCardView extends MaterialCardView {
     private TextView primaryText, secondaryText;
@@ -72,7 +74,10 @@ public class ExpandableCardView extends MaterialCardView {
     public void setDevices(List<IotDevice> devices) {
         ItemAdapter listItemAdapter = new ItemAdapter(getContext(), devices);
         listItemAdapter.setInterfaceObjectsListener(device -> interfaceCardView.onItemSelect(device));
-        if (!devices.isEmpty()) noDevices = true;
+        if (!devices.isEmpty()) {
+            noDevices = true;
+            arrow.setVisibility(VISIBLE);
+        }
         changeIconArrow(2);
         grid.setAdapter(listItemAdapter);
     }
