@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 import salaroli.com.expandablecardview.CardView.ItemAdapter;
+import salaroli.com.expandablecardview.IotDevice;
 import salaroli.com.expandablecardview.R;
 
 import static android.view.View.VISIBLE;
@@ -24,16 +23,17 @@ import static android.view.View.GONE;
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
     private List<Room> listRoom;
     private Context context;
+    private InterfaceRecyclerCardView interfaceRecyclerCardView;
 
-    public RoomAdapter(List<Room> listRoom, Context context) {
-        this.listRoom = listRoom;
+    public RoomAdapter(Context context, List<Room> listRoom) {
         this.context = context;
+        this.listRoom = listRoom;
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
-        View header;
+        private View header;
         private TextView primaryText, secondaryText;
-        public ImageView arrow, actionOne, actionTwo;
+        private ImageView arrow, actionOne, actionTwo;
         private GridView grid;
         private boolean cardOpenStatus = true;
         private View cardDivider, actionOneDivider, actionTwoDivider;
@@ -51,19 +51,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             arrow = view.findViewById(R.id.card_arrow);
             cardDivider = view.findViewById(R.id.card_divider);
             grid = view.findViewById(R.id.card_grid_devices);
-
-//            view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//                @Override
-//                public boolean onPreDraw() {
-//                    view.getViewTreeObserver().removeOnPreDrawListener(this);
-//                    // Set the minimum height of the CardView
-//                    int height = header.getHeight() + grid.getHeight();
-//                    ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-//                    layoutParams.height = height;
-//                    view.setLayoutParams(layoutParams);
-//                    return true;
-//                }
-//            });
         }
 
     }
@@ -79,9 +66,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = listRoom.get(position);
         ItemAdapter listItemAdapter = new ItemAdapter(context, room.devices);
+        listItemAdapter.setInterfaceObjectsListener(device -> interfaceRecyclerCardView.onItemSelect(room, device));
         holder.grid.setAdapter(listItemAdapter);
-
-
         holder.primaryText.setText(room.nameRoom);
         holder.secondaryText.setText(room.infoRoom);
         if (room.firstAction) {
@@ -101,27 +87,30 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             holder.actionTwo.setVisibility(GONE);
         }
 
-        holder.header.setOnClickListener(view -> {
-            if (holder.noDevices) {
-                if (holder.cardOpenStatus) {
-                    holder.grid.setVisibility(VISIBLE);
-                    holder.cardDivider.setVisibility(VISIBLE);
-                    TransitionManager.beginDelayedTransition((ViewGroup) view.getParent(), new AutoTransition());
-                    changeIconArrow(holder, 1);
-                } else {
-                    holder.cardDivider.setVisibility(GONE);
-                    holder.grid.setVisibility(GONE);
-                    changeIconArrow(holder, 2);
-                }
-            } else {
-                changeIconArrow(holder, 3);
-            }
-            holder.cardOpenStatus = !holder.cardOpenStatus;
-        });
+        holder.header.setOnClickListener(view -> onClickHeader(holder, view, room));
         if (!room.devices.isEmpty()) {
             holder.noDevices = true;
             holder.arrow.setVisibility(VISIBLE);
         }
+    }
+
+    private void onClickHeader(@NonNull RoomViewHolder holder, View view, Room room) {
+        if (holder.noDevices) {
+            if (holder.cardOpenStatus) {
+                holder.grid.setVisibility(VISIBLE);
+                holder.cardDivider.setVisibility(VISIBLE);
+                TransitionManager.beginDelayedTransition((ViewGroup) view.getParent(), new AutoTransition());
+                changeIconArrow(holder, 1);
+            } else {
+                holder.cardDivider.setVisibility(GONE);
+                holder.grid.setVisibility(GONE);
+                changeIconArrow(holder, 2);
+            }
+        } else {
+            changeIconArrow(holder, 3);
+            interfaceRecyclerCardView.noDevice(room);
+        }
+        holder.cardOpenStatus = !holder.cardOpenStatus;
     }
 
     @Override
@@ -137,5 +126,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         } else {
             holder.arrow.setImageDrawable(null);
         }
+    }
+
+    public interface InterfaceRecyclerCardView {
+        void onItemSelect(Room room, IotDevice device);
+        void noDevice(Room room);
+    }
+    public void setInterfaceListener(InterfaceRecyclerCardView interfaceRecyclerCardView) {
+        this.interfaceRecyclerCardView = interfaceRecyclerCardView;
     }
 }
