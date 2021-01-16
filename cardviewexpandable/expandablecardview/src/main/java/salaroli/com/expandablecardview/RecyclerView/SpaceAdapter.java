@@ -20,17 +20,17 @@ import salaroli.com.expandablecardview.R;
 import static android.view.View.VISIBLE;
 import static android.view.View.GONE;
 
-public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
+public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.SpaceViewHolder> {
     private List<Space> listSpace;
     private Context context;
     private InterfaceRecyclerCardView interfaceRecyclerCardView;
 
-    public RoomAdapter(Context context, List<Space> listSpace) {
+    public SpaceAdapter(Context context, List<Space> listSpace) {
         this.context = context;
         this.listSpace = listSpace;
     }
 
-    public static class RoomViewHolder extends RecyclerView.ViewHolder {
+    public static class SpaceViewHolder extends RecyclerView.ViewHolder {
         private View header;
         private TextView primaryText, secondaryText;
         private ImageView arrow, actionOne, actionTwo;
@@ -39,7 +39,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         private View cardDivider, actionOneDivider, actionTwoDivider;
         private boolean noDevices = false;
 
-        public RoomViewHolder(MaterialCardView view) {
+        public SpaceViewHolder(MaterialCardView view) {
             super(view);
             header = view.findViewById(R.id.header);
             primaryText = view.findViewById(R.id.primary_text);
@@ -56,14 +56,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
     @NonNull
     @Override
-    public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SpaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         MaterialCardView cardView = (MaterialCardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.room_card, parent, false);
-        RoomViewHolder roomViewHolder = new RoomViewHolder(cardView);
-        return roomViewHolder;
+        SpaceViewHolder spaceViewHolder = new SpaceViewHolder(cardView);
+        return spaceViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SpaceViewHolder holder, int position) {
         Space space = listSpace.get(position);
         ItemAdapter listItemAdapter = new ItemAdapter(context, space.devices);
         listItemAdapter.setInterfaceObjectsListener(device -> interfaceRecyclerCardView.onItemSelect(space, device));
@@ -94,7 +94,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         }
     }
 
-    private void onClickHeader(@NonNull RoomViewHolder holder, View view, Space space) {
+    private void onClickHeader(@NonNull SpaceViewHolder holder, View view, Space space) {
         if (holder.noDevices) {
             if (holder.cardOpenStatus) {
                 holder.grid.setVisibility(VISIBLE);
@@ -118,7 +118,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         return listSpace.size();
     }
 
-    private void changeIconArrow(RoomViewHolder holder, int position) {
+    private void changeIconArrow(SpaceViewHolder holder, int position) {
         if(position == 1) {
             holder.arrow.setImageResource(R.drawable.arrow_up);
         } else if (position == 2){

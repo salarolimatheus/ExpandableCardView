@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import salaroli.com.expandablecardview.IotDevice;
 import salaroli.com.expandablecardview.RecyclerView.Space;
-import salaroli.com.expandablecardview.RecyclerView.RoomAdapter;
+import salaroli.com.expandablecardview.RecyclerView.SpaceAdapter;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -36,8 +36,8 @@ public class ExampleRecyclerViewActivity extends AppCompatActivity {
                 R.drawable.lamp,R.drawable.window_open));
         listSpace.add(new Space(2,"Kitchen", "", devices1, false, false,  0,0));
 
-        RoomAdapter myAdapter = new RoomAdapter(this, listSpace);
-        myAdapter.setInterfaceListener(new RoomAdapter.InterfaceRecyclerCardView() {
+        SpaceAdapter myAdapter = new SpaceAdapter(this, listSpace);
+        myAdapter.setInterfaceListener(new SpaceAdapter.InterfaceRecyclerCardView() {
             @Override
             public void onItemSelect(Space space, IotDevice device) {
                 Toast.makeText(getBaseContext(), space.nameSpace + "  " + device.getTextDevice(), Toast.LENGTH_SHORT).show();
