@@ -21,13 +21,13 @@ import static android.view.View.VISIBLE;
 import static android.view.View.GONE;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
-    private List<Room> listRoom;
+    private List<Space> listSpace;
     private Context context;
     private InterfaceRecyclerCardView interfaceRecyclerCardView;
 
-    public RoomAdapter(Context context, List<Room> listRoom) {
+    public RoomAdapter(Context context, List<Space> listSpace) {
         this.context = context;
-        this.listRoom = listRoom;
+        this.listSpace = listSpace;
     }
 
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
@@ -64,37 +64,37 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
-        Room room = listRoom.get(position);
-        ItemAdapter listItemAdapter = new ItemAdapter(context, room.devices);
-        listItemAdapter.setInterfaceObjectsListener(device -> interfaceRecyclerCardView.onItemSelect(room, device));
+        Space space = listSpace.get(position);
+        ItemAdapter listItemAdapter = new ItemAdapter(context, space.devices);
+        listItemAdapter.setInterfaceObjectsListener(device -> interfaceRecyclerCardView.onItemSelect(space, device));
         holder.grid.setAdapter(listItemAdapter);
-        holder.primaryText.setText(room.nameRoom);
-        holder.secondaryText.setText(room.infoRoom);
-        if (room.firstAction) {
+        holder.primaryText.setText(space.nameSpace);
+        holder.secondaryText.setText(space.infoSpace);
+        if (space.firstAction) {
             holder.actionOneDivider.setVisibility(VISIBLE);
             holder.actionOne.setVisibility(VISIBLE);
-            holder.actionOne.setImageResource(room.resourceFirstAction);
+            holder.actionOne.setImageResource(space.resourceFirstAction);
         } else {
             holder.actionOneDivider.setVisibility(GONE);
             holder.actionOne.setVisibility(GONE);
         }
-        if (room.secondAction) {
+        if (space.secondAction) {
             holder.actionTwoDivider.setVisibility(VISIBLE);
             holder.actionTwo.setVisibility(VISIBLE);
-            holder.actionTwo.setImageResource(room.resourceSecondAction);
+            holder.actionTwo.setImageResource(space.resourceSecondAction);
         } else {
             holder.actionTwoDivider.setVisibility(GONE);
             holder.actionTwo.setVisibility(GONE);
         }
 
-        holder.header.setOnClickListener(view -> onClickHeader(holder, view, room));
-        if (!room.devices.isEmpty()) {
+        holder.header.setOnClickListener(view -> onClickHeader(holder, view, space));
+        if (!space.devices.isEmpty()) {
             holder.noDevices = true;
             holder.arrow.setVisibility(VISIBLE);
         }
     }
 
-    private void onClickHeader(@NonNull RoomViewHolder holder, View view, Room room) {
+    private void onClickHeader(@NonNull RoomViewHolder holder, View view, Space space) {
         if (holder.noDevices) {
             if (holder.cardOpenStatus) {
                 holder.grid.setVisibility(VISIBLE);
@@ -108,14 +108,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             }
         } else {
             changeIconArrow(holder, 3);
-            interfaceRecyclerCardView.noDevice(room);
+            interfaceRecyclerCardView.noDevice(space);
         }
         holder.cardOpenStatus = !holder.cardOpenStatus;
     }
 
     @Override
     public int getItemCount() {
-        return listRoom.size();
+        return listSpace.size();
     }
 
     private void changeIconArrow(RoomViewHolder holder, int position) {
@@ -129,8 +129,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     public interface InterfaceRecyclerCardView {
-        void onItemSelect(Room room, IotDevice device);
-        void noDevice(Room room);
+        void onItemSelect(Space space, IotDevice device);
+        void noDevice(Space space);
     }
     public void setInterfaceListener(InterfaceRecyclerCardView interfaceRecyclerCardView) {
         this.interfaceRecyclerCardView = interfaceRecyclerCardView;

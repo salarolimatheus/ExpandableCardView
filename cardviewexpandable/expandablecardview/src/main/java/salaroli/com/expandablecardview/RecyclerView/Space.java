@@ -4,20 +4,20 @@ import java.util.List;
 
 import salaroli.com.expandablecardview.IotDevice;
 
-public class Room {
-    public int idRoom;
-    public String nameRoom;
-    public String infoRoom;
+public class Space {
+    public int idSpace;
+    public String nameSpace;
+    public String infoSpace;
     public List<IotDevice> devices;
     public boolean firstAction;
     public boolean secondAction;
     public int resourceFirstAction;
     public int resourceSecondAction;
 
-    public Room(int idRoom, String nameRoom, String infoRoom, List<IotDevice> devices, boolean firstAction, boolean secondAction, int resourceFirstAction, int resourceSecondAction) {
-        this.idRoom = idRoom;
-        this.nameRoom = nameRoom;
-        this.infoRoom = infoRoom;
+    public Space(int idSpace, String nameSpace, String infoSpace, List<IotDevice> devices, boolean firstAction, boolean secondAction, int resourceFirstAction, int resourceSecondAction) {
+        this.idSpace = idSpace;
+        this.nameSpace = nameSpace;
+        this.infoSpace = infoSpace;
         this.devices = devices;
         this.firstAction = firstAction;
         this.secondAction = secondAction;
