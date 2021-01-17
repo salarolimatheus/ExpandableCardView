@@ -8,6 +8,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.material.card.MaterialCardView;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +30,7 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.SpaceViewHol
 
     public SpaceAdapter(Context context) {
         this.context = context;
+        this.listSpace = new ArrayList<Space>();
     }
 
     public SpaceAdapter(Context context, List<Space> listSpace) {

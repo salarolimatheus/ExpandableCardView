@@ -36,7 +36,7 @@ public class ExampleRecyclerViewActivity extends AppCompatActivity {
                 R.drawable.lamp,R.drawable.window_open));
         listSpace.add(new Space(2,"Kitchen", "", devices1, false, false,  0,0));
 
-        SpaceAdapter myAdapter = new SpaceAdapter(this, listSpace);
+        SpaceAdapter myAdapter = new SpaceAdapter(this);
         myAdapter.setInterfaceListener(new SpaceAdapter.InterfaceRecyclerCardView() {
             @Override
             public void onItemSelect(Space space, IotDevice device) {
@@ -48,6 +48,7 @@ public class ExampleRecyclerViewActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(myAdapter);
+        myAdapter.setSpaces(listSpace);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
     }
