@@ -25,8 +25,16 @@ public class SpaceAdapter extends RecyclerView.Adapter<SpaceAdapter.SpaceViewHol
     private Context context;
     private InterfaceRecyclerCardView interfaceRecyclerCardView;
 
+    public SpaceAdapter(Context context) {
+        this.context = context;
+    }
+
     public SpaceAdapter(Context context, List<Space> listSpace) {
         this.context = context;
+        this.listSpace = listSpace;
+    }
+
+    public void setSpaces(List<Space> listSpace) {
         this.listSpace = listSpace;
     }
 
